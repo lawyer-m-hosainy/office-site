@@ -42,7 +42,7 @@ export default function SEO({ title, description, type = 'website', url }: SEOPr
           "description": siteData.description,
           "url": siteData.domain,
           "logo": `${siteData.domain}/brand/logo.svg`,
-          "telephone": siteData.whatsapp,
+          "telephone": siteData.whatsappInternational,
           "email": siteData.email,
           "address": siteData.address ? {
             "@type": "PostalAddress",
@@ -51,6 +51,21 @@ export default function SEO({ title, description, type = 'website', url }: SEOPr
           "openingHours": siteData.workingHours || undefined
         })}
       </script>
+
+      {/* Google Analytics (if configured) */}
+      {(siteData as any).googleAnalyticsId && (
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${(siteData as any).googleAnalyticsId}`}></script>
+      )}
+      {(siteData as any).googleAnalyticsId && (
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${(siteData as any).googleAnalyticsId}');
+          `}
+        </script>
+      )}
     </Helmet>
   );
 }
