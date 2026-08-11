@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import siteData from '../content/site.json';
 
 interface SEOProps {
@@ -9,7 +10,9 @@ interface SEOProps {
   url?: string;
 }
 
-export default function SEO({ title, description, type = 'website', url = siteData.domain }: SEOProps) {
+export default function SEO({ title, description, type = 'website', url }: SEOProps) {
+  const location = useLocation();
+  const currentUrl = url || `${siteData.domain}${location.pathname}`;
   const pageTitle = title ? `${title} | ${siteData.shortName}` : `${siteData.name} | جنائي، مدني، أسرة، شركات`;
   const pageDesc = description || siteData.description;
 
@@ -17,12 +20,12 @@ export default function SEO({ title, description, type = 'website', url = siteDa
     <Helmet>
       <title>{pageTitle}</title>
       <meta name="description" content={pageDesc} />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={currentUrl} />
       
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDesc} />
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={currentUrl} />
       <meta property="og:image" content={`${siteData.domain}/brand/og-cover.jpg`} />
       
       <meta name="twitter:card" content="summary_large_image" />

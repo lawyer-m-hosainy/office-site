@@ -75,14 +75,24 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="bg-gray-50 p-8 rounded-xl border border-gray-200 h-full min-h-[300px] flex items-center justify-center flex-col text-center">
+          <div className="bg-gray-50 rounded-xl border border-gray-200 h-full min-h-[300px] flex items-center justify-center flex-col text-center overflow-hidden">
             {siteData.mapLink ? (
-              <p className="text-gray-500 mb-4">يمكن إضافة خريطة جوجل هنا لاحقاً عبر التضمين (Embed) إذا تم تحديد الموقع.</p>
+              <iframe 
+                src={siteData.mapLink} 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0, minHeight: '100%' }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="موقع المكتب على الخريطة"
+                className="w-full h-full min-h-[300px]"
+              ></iframe>
             ) : (
-               <>
+               <div className="p-8 flex flex-col items-center justify-center h-full">
                  <MapPin size={48} className="text-gray-300 mb-4" />
                  <p className="text-gray-500 max-w-xs text-lg leading-relaxed">موقع المكتب على الخريطة سيتم إضافته قريباً بعد تحديد العنوان بالتفصيل.</p>
-               </>
+               </div>
             )}
           </div>
 

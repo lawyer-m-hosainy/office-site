@@ -14,20 +14,23 @@ export default function BookConsultation() {
     preferredTime: '',
     privacyAccepted: false
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.privacyAccepted) return;
     
-    // Format message for WhatsApp (Excluding sensitive description for privacy)
+    // Format message for WhatsApp
     const message = `طلب استشارة جديد:
 الاسم: ${formData.name}
 الهاتف: ${formData.phone}
 نوع القضية/الخدمة: ${formData.serviceType}
+الوصف: ${formData.description}
 (تم إرسال هذا الطلب المبدئي عبر الموقع الإلكتروني)`;
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${siteData.whatsapp.replace(/\+/g, '')}?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/${siteData.whatsappInternational}?text=${encodedMessage}`, '_blank');
+    setIsSubmitted(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -55,6 +58,13 @@ export default function BookConsultation() {
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="max-w-2xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-sm border border-gray-200">
           
+          {isSubmitted && (
+            <div className="mb-6 p-4 bg-green-50 text-green-700 border border-green-200 rounded-md">
+              <p className="font-bold">تم تحويلك إلى واتساب بنجاح!</p>
+              <p className="text-sm mt-1">إذا لم يفتح التطبيق تلقائياً، يمكنك إرسال رسالتك مباشرة على الرقم: <span dir="ltr">{siteData.whatsapp}</span></p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>

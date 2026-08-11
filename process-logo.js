@@ -1,0 +1,19 @@
+const fs = require('fs');
+
+// Create favicon.svg
+const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="24" fill="#164A46" />
+  <path transform="scale(0.833)" d="M 26 38 C 34 38, 40 56, 56 56 L 76 56 C 102 56, 102 84, 76 84 L 50 84 C 30 84, 20 94, 26 106"
+        stroke="#F7F3EC" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+</svg>`;
+fs.writeFileSync('public/favicon.svg', faviconSvg);
+
+// We will also use favicon.svg as favicon.ico as a fallback
+fs.writeFileSync('public/favicon.ico', faviconSvg);
+
+// Update logo.svg to use standard system fonts instead of importing Google Fonts,
+let logoSvg = fs.readFileSync('public/brand/logo.svg', 'utf8');
+logoSvg = logoSvg.replace(/@import url\('[^']+'\);\n/g, '');
+// And make sure background is transparent (already is)
+fs.writeFileSync('public/brand/logo.svg', logoSvg);
+console.log('Logo and Favicon processed');
