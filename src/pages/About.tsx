@@ -52,7 +52,7 @@ export default function About() {
           </div>
 
           <div className="bg-primary text-background p-8 lg:p-12 rounded-xl flex flex-col md:flex-row gap-8 items-center md:items-start">
-            <div className="w-32 h-32 md:w-48 md:h-48 bg-gray-200 rounded-full shrink-0 overflow-hidden border-4 border-secondary flex items-center justify-center text-gray-400">
+            <div className="relative isolate w-32 h-32 md:w-48 md:h-48 bg-gray-200 rounded-full shrink-0 overflow-hidden border-4 border-secondary flex items-center justify-center text-gray-400">
               {/* Lawyer Image Placeholder - will fall back to icon if image not found */}
               <img src="/lawyer.jpg" alt={aboutData.lawyerName} className="w-full h-full object-cover" onError={(e) => {
                 e.currentTarget.style.display = 'none';

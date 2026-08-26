@@ -61,5 +61,5 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 ${urls.join('')}
 </urlset>`;
 
-fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap);
+fs.writeFileSync(path.join(__dirname, '../dist/sitemap.xml'), sitemap);
 console.log('Sitemap generated successfully!');

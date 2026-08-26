@@ -56,6 +56,9 @@ generatePage('/services', 'خدماتنا', '');
 generatePage('/articles', 'المقالات القانونية', '');
 generatePage('/book', 'احجز استشارة', 'احجز موعد استشارة قانونية مع مكتب الحسيني للمحاماة.');
 generatePage('/contact', 'تواصل معنا', '');
+generatePage('/privacy', 'سياسة الخصوصية', '');
+generatePage('/terms', 'شروط الاستخدام', '');
+generatePage('/disclaimer', 'إخلاء المسؤولية', '');
 
 servicesData.forEach(s => {
   generatePage(`/services/${s.id}`, s.title, s.shortDescription);

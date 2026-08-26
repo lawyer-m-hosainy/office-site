@@ -1,9 +1,20 @@
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import articlesData from '../content/articles.json';
+import articlesDataRaw from '../content/articles.json';
 import servicesData from '../content/services.json';
 import { Calendar } from 'lucide-react';
+
+interface Article {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  relatedService?: string;
+}
+
+const articlesData = articlesDataRaw as Article[];
 
 export default function ArticleDetail() {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +24,6 @@ export default function ArticleDetail() {
     return <Navigate to="/articles" replace />;
   }
 
-  // @ts-ignore
   const relatedService = article.relatedService ? servicesData.find(s => s.id === article.relatedService) : null;
 
   return (

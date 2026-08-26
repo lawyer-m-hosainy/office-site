@@ -28,7 +28,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg mb-1">رقم الهاتف / واتساب</h3>
-                  <a href={siteData.whatsappLink} className="text-gray-600 hover:text-secondary block dir-ltr text-right" dir="ltr">{siteData.whatsapp}</a>
+                  <a href={siteData.whatsappLink} className="text-gray-600 hover:text-secondary block text-right" dir="ltr">{siteData.whatsapp}</a>
                 </div>
               </div>
 

@@ -8,9 +8,6 @@ const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100
 </svg>`;
 fs.writeFileSync('public/favicon.svg', faviconSvg);
 
-// We will also use favicon.svg as favicon.ico as a fallback
-fs.writeFileSync('public/favicon.ico', faviconSvg);
-
 // Update logo.svg to use standard system fonts instead of importing Google Fonts,
 let logoSvg = fs.readFileSync('public/brand/logo.svg', 'utf8');
 logoSvg = logoSvg.replace(/@import url\('[^']+'\);\n/g, '');
