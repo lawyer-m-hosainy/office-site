@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import Disclaimer from './pages/Disclaimer';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="privacy" element={<PrivacyPolicy />} />
             <Route path="terms" element={<Terms />} />
             <Route path="disclaimer" element={<Disclaimer />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
