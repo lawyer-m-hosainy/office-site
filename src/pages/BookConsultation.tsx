@@ -21,10 +21,11 @@ export default function BookConsultation() {
     if (!formData.privacyAccepted) return;
     
     // Format message for WhatsApp
+    const serviceTypeLabel = formData.serviceType === 'other' ? 'أخرى' : formData.serviceType;
     const message = `طلب استشارة جديد:
 الاسم: ${formData.name}
 الهاتف: ${formData.phone}
-نوع القضية/الخدمة: ${formData.serviceType}
+نوع القضية/الخدمة: ${serviceTypeLabel}
 الوصف: ${formData.description}
 (تم إرسال هذا الطلب المبدئي عبر الموقع الإلكتروني)`;
 

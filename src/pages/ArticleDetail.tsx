@@ -63,6 +63,9 @@ export default function ArticleDetail() {
               if (paragraph.match(/^\d+\./)) {
                 return <p key={index} className="mb-2 mr-4 flex gap-2"><span className="font-bold text-secondary">{paragraph.split('.')[0]}.</span> {paragraph.substring(paragraph.indexOf('.') + 1).trim()}</p>
               }
+              if (paragraph.startsWith('- ')) {
+                return <p key={index} className="mb-2 mr-4 flex gap-2"><span className="font-bold text-secondary">•</span> {paragraph.substring(2).trim()}</p>
+              }
               if (!paragraph.trim()) return null;
               return <p key={index} className="mb-6">{paragraph}</p>;
             })}
