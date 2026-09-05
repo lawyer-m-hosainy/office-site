@@ -57,4 +57,10 @@ describe('prerender output', () => {
     expect(head).not.toContain('rel="canonical"');
     expect(html).toContain('عذراً، الصفحة غير موجودة');
   });
+
+  it('never leaks the internal not-found sentinel into public metadata', () => {
+    const { head, html } = render('/__not-found__');
+    expect(head).not.toContain('__not-found__');
+    expect(html).not.toContain('__not-found__');
+  });
 });

@@ -137,7 +137,7 @@ export default function SEO({
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={resolvedDesc} />
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={currentUrl} />
+      {!noindex && <meta property="og:url" content={currentUrl} />}
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
