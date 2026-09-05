@@ -1,13 +1,33 @@
 {
   "name": "مكتب محمد السيد الحسيني – محامٍ",
   "shortName": "مكتب الحسيني",
-  "description": "مكتب محمد السيد الحسيني للمحاماة يقدم خدمات قانونية في القضايا الجنائية والمدنية وقضايا الأسرة والشركات.",
+  "description": "مكتب محمد السيد الحسيني للمحاماة بالمنصورة – الدقهلية: خدمات قانونية في القضايا الجنائية والمدنية وقضايا الأسرة والشركات، مع استشارات دقيقة وسرية تامة.",
+  "tagline": "محامٍ بالمنصورة – الدقهلية",
   "whatsapp": "01142099605",
   "whatsappInternational": "201142099605",
   "whatsappLink": "https://wa.me/201142099605",
+  "phoneDisplay": "01142099605",
+  "phoneE164": "+201142099605",
   "email": "m.hosainy.law@gmail.com",
   "address": "المنصورة - توريل - شارع بوتاري",
+  "city": "المنصورة",
+  "region": "الدقهلية",
+  "country": "EG",
+  "geo": {
+    "latitude": 31.05131,
+    "longitude": 31.399927
+  },
+  "areaServed": ["المنصورة", "الدقهلية", "جمهورية مصر العربية"],
   "workingHours": "من الساعة 8 إلى الساعة 11 يومياً ما عدا الجمعة",
+  "openingHoursSpecification": {
+    "days": ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+    "opens": "08:00",
+    "closes": "23:00"
+  },
+  "responseTime": "نرد على الطلبات خلال 24 ساعة كحد أقصى",
+  "feesNote": "يتم تحديد المقابل المادي للاستشارة أو الخدمة بعد تقييم أولي لحالة القضية.",
+  "sameAs": [],
+  "legalLastUpdated": "2026-09-05",
   "mapLink": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d213.63126136140025!2d31.39992712233182!3d31.051310506481954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDAzJzA0LjgiTiAzMcKwMjQnMDAuMyJF!5e0!3m2!1sen!2seg!4v1786489554841!5m2!1sen!2seg",
   "googleAnalyticsId": "G-R5VH51Z32K",
   "domain": "https://hosainy.pro"

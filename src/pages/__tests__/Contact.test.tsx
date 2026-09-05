@@ -5,10 +5,24 @@ import siteData from '../../content/site.json';
 import Contact from '../Contact';
 
 describe('Contact page', () => {
-  it('renders working contact links and the map embed', () => {
+  it('separates click-to-call from whatsapp so both are reachable', () => {
     renderWithProviders(<Contact />);
-    expect(screen.getByText(siteData.whatsapp)).toHaveAttribute('href', siteData.whatsappLink);
+
+    const links = screen.getAllByRole('link', { name: siteData.phoneDisplay });
+    const hrefs = links.map((l) => l.getAttribute('href'));
+    expect(hrefs).toContain(`tel:${siteData.phoneE164}`);
+    expect(hrefs).toContain(siteData.whatsappLink);
+  });
+
+  it('links the email address and renders the map embed', () => {
+    renderWithProviders(<Contact />);
     expect(screen.getByText(siteData.email)).toHaveAttribute('href', `mailto:${siteData.email}`);
     expect(screen.getByTitle('موقع المكتب على الخريطة')).toHaveAttribute('src', siteData.mapLink);
+  });
+
+  it('states the city and governorate for local visitors', () => {
+    renderWithProviders(<Contact />);
+    expect(screen.getAllByText(new RegExp(siteData.city)).length).toBeGreaterThan(0);
+    expect(screen.getByText(new RegExp(`محافظة ${siteData.region}`))).toBeInTheDocument();
   });
 });
