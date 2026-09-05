@@ -54,8 +54,8 @@ export default function Faq() {
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="max-w-3xl mx-auto">
           <div className="bg-blue-50 border-s-4 border-blue-600 p-4 mb-10 rounded-e text-blue-900 text-sm">
-            <strong>تنويه:</strong> الإجابات هنا عامة لأغراض التوعية القانونية، وتختلف النتيجة
-            باختلاف وقائع كل حالة. لا تعتمد عليها كبديل عن استشارة قانونية خاصة بحالتك.
+            <strong>تنويه:</strong> هذه إجابات عامة، وتختلف النتيجة باختلاف وقائع كل حالة
+            ومستنداتها. للحصول على رأي في حالتك تحديداً، تواصل مع المكتب.
           </div>
 
           <div className="flex flex-wrap gap-2 mb-8" role="group" aria-label="تصفية حسب المجال">

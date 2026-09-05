@@ -78,8 +78,9 @@ export default function ArticleDetail() {
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="max-w-3xl mx-auto">
           <div className="bg-blue-50 border-s-4 border-blue-600 p-4 mb-12 rounded-e text-blue-900 text-sm">
-            <strong>تنويه:</strong> المحتوى المنشور لأغراض التوعية القانونية العامة، ولا يمثل استشارة
-            قانونية. يرجى استشارة محامٍ متخصص قبل اتخاذ أي إجراء قانوني.
+            <strong>تنويه:</strong> هذا المقال شرح عام للقاعدة القانونية، وكل قضية لها وقائعها
+            ومستنداتها التي قد تغيّر النتيجة. للحصول على رأي في حالتك تحديداً، تواصل مع المكتب قبل
+            اتخاذ أي إجراء.
           </div>
 
           <ArticleBody content={article.content} />
