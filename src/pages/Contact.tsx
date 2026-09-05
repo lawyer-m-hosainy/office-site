@@ -1,6 +1,6 @@
 import SEO from '../components/SEO';
 import siteData from '../content/site.json';
-import { Clock, Mail, MapPin, MessageCircle, Phone } from '../lib/icons';
+import { ChevronLeft, Clock, Mail, MapPin, MessageCircle, Phone } from '../lib/icons';
 import { trackLead } from '../lib/analytics';
 
 export default function Contact() {
@@ -87,6 +87,17 @@ export default function Contact() {
                   <p className="text-gray-600">
                     {siteData.city} — محافظة {siteData.region}
                   </p>
+                  {siteData.googleBusinessProfile && (
+                    <a
+                      href={siteData.googleBusinessProfile}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-2 text-secondary font-semibold hover:underline"
+                    >
+                      افتح الموقع على خرائط جوجل
+                      <ChevronLeft size={16} aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               </div>
 

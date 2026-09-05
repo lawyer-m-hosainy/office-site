@@ -26,6 +26,13 @@ interface SEOProps {
 
 const ORG_ID = `${siteData.domain}/#office`;
 
+// The Google Business Profile is the one link that ties the site to the map listing,
+// so it belongs in sameAs alongside any social profiles the office adds later.
+const profileLinks = [
+  ...siteData.sameAs,
+  ...(siteData.googleBusinessProfile ? [siteData.googleBusinessProfile] : []),
+];
+
 export function buildOfficeSchema() {
   return {
     '@context': 'https://schema.org',
@@ -61,7 +68,8 @@ export function buildOfficeSchema() {
         closes: siteData.openingHoursSpecification.closes,
       },
     ],
-    ...(siteData.sameAs.length > 0 ? { sameAs: siteData.sameAs } : {}),
+    ...(siteData.googleBusinessProfile ? { hasMap: siteData.googleBusinessProfile } : {}),
+    ...(profileLinks.length > 0 ? { sameAs: profileLinks } : {}),
   };
 }
 
