@@ -1,9 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { screen } from '@testing-library/react';
-import { Route, Routes } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
-import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import servicesData from '../../content/services.json';
 import ServiceDetail from '../ServiceDetail';
 
@@ -24,12 +22,23 @@ describe('ServiceDetail page', () => {
   it('renders the matching service title and description for a known id', () => {
     const service = servicesData[0];
     renderAt(`/services/${service.id}`);
-    expect(screen.getByRole('heading', { name: service.title })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: service.title })).toBeInTheDocument();
     expect(screen.getByText(service.description)).toBeInTheDocument();
   });
 
-  it('redirects to /services for an unknown id', () => {
+  it('explains that the service is missing instead of silently redirecting', () => {
     renderAt('/services/does-not-exist');
-    expect(screen.getByText('Services list marker')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'الخدمة غير موجودة' })).toBeInTheDocument();
+    expect(screen.queryByText('Services list marker')).not.toBeInTheDocument();
+  });
+
+  it('sends both calls to action to reachable destinations', () => {
+    const service = servicesData[0];
+    renderAt(`/services/${service.id}`);
+    expect(screen.getByRole('link', { name: 'احجز موعداً' })).toHaveAttribute('href', '/book');
+    expect(screen.getByRole('link', { name: /تواصل عبر واتساب/ })).toHaveAttribute(
+      'target',
+      '_blank'
+    );
   });
 });

@@ -1,0 +1,24 @@
+{
+  "name": "مكتب محمد السيد الحسيني للمحاماة",
+  "short_name": "مكتب الحسيني",
+  "description": "مكتب محاماة بالمنصورة – الدقهلية: قضايا جنائية ومدنية وأسرة وشركات.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EC",
+  "theme_color": "#164A46",
+  "icons": [
+    {
+      "src": "/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

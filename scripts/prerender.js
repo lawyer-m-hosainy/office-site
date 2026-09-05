@@ -2,70 +2,64 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.join(__dirname, '..');
+const distDir = path.join(root, 'dist');
+const ssrEntry = path.join(root, 'dist-ssr', 'entry-server.js');
 
-const siteData = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/content/site.json'), 'utf-8'));
-const articlesData = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/content/articles.json'), 'utf-8'));
-const servicesData = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/content/services.json'), 'utf-8'));
+const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf-8'));
+const articles = read('src/content/articles.json');
+const services = read('src/content/services.json');
+const pages = read('src/content/pages.json');
 
-const distDir = path.join(__dirname, '../dist');
-let indexHtml = '';
-try {
-  indexHtml = fs.readFileSync(path.join(distDir, 'index.html'), 'utf-8');
-} catch (e) {
+if (!fs.existsSync(path.join(distDir, 'index.html'))) {
   console.log('dist/index.html not found, skipping prerender.');
   process.exit(0);
 }
 
-const generatePage = (route, title, description) => {
-  const pageTitle = title ? `${title} | ${siteData.shortName}` : `${siteData.name} | جنائي، مدني، أسرة، شركات`;
-  const pageDesc = description || siteData.description;
-  const url = `${siteData.domain}${route}`;
+if (!fs.existsSync(ssrEntry)) {
+  console.error('SSR bundle not found. Run `vite build --ssr src/entry-server.tsx` first.');
+  process.exit(1);
+}
 
-  let html = indexHtml.replace(/<title>.*?<\/title>/, `<title>${pageTitle}</title>`);
-  
-  const metaTags = `
-    <meta name="description" content="${pageDesc}" />
-    <link rel="canonical" href="${url}" />
-    <meta property="og:title" content="${pageTitle}" />
-    <meta property="og:description" content="${pageDesc}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="${url}" />
-    <meta property="og:image" content="${siteData.domain}/brand/og-cover.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${pageTitle}" />
-    <meta name="twitter:description" content="${pageDesc}" />
-    <meta name="twitter:image" content="${siteData.domain}/brand/og-cover.jpg" />
-  `;
-  
-  html = html.replace('</head>', `${metaTags}</head>`);
-  
-  const dirPath = path.join(distDir, route.substring(1));
-  if (route !== '' && route !== '/') {
-    fs.mkdirSync(dirPath, { recursive: true });
-    fs.writeFileSync(path.join(dirPath, 'index.html'), html);
-  } else {
-    fs.writeFileSync(path.join(distDir, 'index.html'), html);
-  }
-};
+const { render } = await import(ssrEntry);
 
-generatePage('', '', '');
-generatePage('/about', 'عن المكتب', '');
-generatePage('/services', 'خدماتنا', '');
-generatePage('/articles', 'المقالات القانونية', '');
-generatePage('/book', 'احجز استشارة', 'احجز موعد استشارة قانونية مع مكتب الحسيني للمحاماة.');
-generatePage('/contact', 'تواصل معنا', '');
-generatePage('/privacy', 'سياسة الخصوصية', '');
-generatePage('/terms', 'شروط الاستخدام', '');
-generatePage('/disclaimer', 'إخلاء المسؤولية', '');
+// Helmet owns <title> and the meta tags, so drop the shell's placeholder title.
+const template = fs
+  .readFileSync(path.join(distDir, 'index.html'), 'utf-8')
+  .replace(/<title>.*?<\/title>\s*/s, '');
 
-servicesData.forEach(s => {
-  generatePage(`/services/${s.id}`, s.title, s.shortDescription);
-});
+const routes = [
+  ...Object.keys(pages).filter((route) => route !== '/404'),
+  ...services.map((s) => `/services/${s.id}`),
+  ...articles.map((a) => `/articles/${a.id}`),
+];
 
-articlesData.forEach(a => {
-  generatePage(`/articles/${a.id}`, a.title, a.excerpt);
-});
+function writePage(route, html, head) {
+  // Tagged so the browser can drop them just before hydration; crawlers without
+  // JS keep them, and React re-renders its own set instead of duplicating.
+  const taggedHead = head.replace(/<(title|meta|link|script)\b/g, '<$1 data-prerendered="true"');
 
-console.log('Prerendering completed.');
+  const page = template
+    .replace('</head>', `    ${taggedHead}\n  </head>`)
+    .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+
+  const target =
+    route === '/404'
+      ? path.join(distDir, '404.html')
+      : path.join(distDir, route === '/' ? '' : route.slice(1), 'index.html');
+
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.writeFileSync(target, page);
+}
+
+for (const route of routes) {
+  const { html, head } = render(route);
+  writePage(route, html, head);
+}
+
+// A real 404 document so unmatched URLs stop returning the homepage with HTTP 200.
+const notFound = render('/__not-found__');
+writePage('/404', notFound.html, notFound.head);
+
+console.log(`Prerendered ${routes.length + 1} pages with full HTML content.`);

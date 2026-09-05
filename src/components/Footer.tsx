@@ -1,7 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import siteData from '../content/site.json';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, MessageCircle, Phone } from '../lib/icons';
+import { trackLead } from '../lib/analytics';
+import BrandLogo from './BrandLogo';
 
 export default function Footer() {
   return (
@@ -9,53 +10,116 @@ export default function Footer() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-12">
           <div className="flex flex-col gap-4">
-            <Link to="/" className="flex items-center gap-3 mb-2">
-               <img src="/brand/logo.svg" alt="شعار المكتب" className="h-12 w-auto brightness-0 invert" onError={(e) => {
-              (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="%23F7F3EC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
-            }} />
+            <Link to="/" className="flex items-center gap-3 mb-2" aria-label="الصفحة الرئيسية">
+              <BrandLogo onDark />
             </Link>
-            <p className="text-background/80 leading-relaxed text-sm">
-              {siteData.description}
-            </p>
+            <p className="text-background/80 leading-relaxed text-sm">{siteData.description}</p>
           </div>
-          
+
           <div>
-            <h3 className="text-secondary font-bold text-lg mb-6">روابط سريعة</h3>
+            <h2 className="text-secondary-bright font-bold text-xl mb-6">روابط سريعة</h2>
             <ul className="space-y-3 text-background/90 text-sm">
-              <li><Link to="/about" className="hover:text-secondary transition-colors">من نحن</Link></li>
-              <li><Link to="/services" className="hover:text-secondary transition-colors">الخدمات القانونية</Link></li>
-              <li><Link to="/articles" className="hover:text-secondary transition-colors">المقالات</Link></li>
-              <li><Link to="/contact" className="hover:text-secondary transition-colors">تواصل معنا</Link></li>
-              <li><Link to="/book" className="text-secondary hover:text-white transition-colors font-bold">احجز استشارة</Link></li>
+              <li>
+                <Link to="/about" className="hover:text-secondary-bright transition-colors">
+                  من نحن
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-secondary-bright transition-colors">
+                  الخدمات القانونية
+                </Link>
+              </li>
+              <li>
+                <Link to="/articles" className="hover:text-secondary-bright transition-colors">
+                  المقالات
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="hover:text-secondary-bright transition-colors">
+                  أسئلة قانونية شائعة
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-secondary-bright transition-colors">
+                  تواصل معنا
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/book"
+                  className="text-secondary-bright hover:text-white transition-colors font-bold"
+                >
+                  احجز استشارة
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-secondary font-bold text-lg mb-6">معلومات التواصل</h3>
+            <h2 className="text-secondary-bright font-bold text-xl mb-6">معلومات التواصل</h2>
             <ul className="space-y-4 text-background/90 text-sm">
               <li className="flex items-start gap-3">
-                <Phone className="text-secondary shrink-0 mt-0.5" size={18} />
-                <a href={siteData.whatsappLink} className="hover:text-secondary transition-colors block text-right" dir="ltr">{siteData.whatsapp}</a>
+                <Phone className="text-secondary-bright shrink-0 mt-0.5" size={18} aria-hidden="true" />
+                <a
+                  href={`tel:${siteData.phoneE164}`}
+                  onClick={() => trackLead('phone', 'footer')}
+                  className="hover:text-secondary-bright transition-colors"
+                >
+                  <span dir="ltr">{siteData.phoneDisplay}</span>
+                </a>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="text-secondary shrink-0 mt-0.5" size={18} />
-                <a href={`mailto:${siteData.email}`} className="hover:text-secondary transition-colors">{siteData.email}</a>
+                <MessageCircle
+                  className="text-secondary-bright shrink-0 mt-0.5"
+                  size={18}
+                  aria-hidden="true"
+                />
+                <a
+                  href={siteData.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackLead('whatsapp', 'footer')}
+                  className="hover:text-secondary-bright transition-colors"
+                >
+                  واتساب
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="text-secondary-bright shrink-0 mt-0.5" size={18} aria-hidden="true" />
+                <a
+                  href={`mailto:${siteData.email}`}
+                  onClick={() => trackLead('email', 'footer')}
+                  className="hover:text-secondary-bright transition-colors"
+                >
+                  {siteData.email}
+                </a>
               </li>
               {siteData.address && (
                 <li className="flex items-start gap-3">
-                  <MapPin className="text-secondary shrink-0 mt-0.5" size={18} />
+                  <MapPin
+                    className="text-secondary-bright shrink-0 mt-0.5"
+                    size={18}
+                    aria-hidden="true"
+                  />
                   <span className="leading-relaxed">{siteData.address}</span>
                 </li>
               )}
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/50">
+
+        <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/80">
           <p>© {new Date().getFullYear()} {siteData.shortName}. جميع الحقوق محفوظة.</p>
-          <div className="flex gap-4">
-            <Link to="/privacy" className="hover:text-background transition-colors">سياسة الخصوصية</Link>
-            <Link to="/terms" className="hover:text-background transition-colors">شروط الاستخدام</Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to="/privacy" className="hover:text-background transition-colors">
+              سياسة الخصوصية
+            </Link>
+            <Link to="/terms" className="hover:text-background transition-colors">
+              شروط الاستخدام
+            </Link>
+            <Link to="/disclaimer" className="hover:text-background transition-colors">
+              إخلاء المسؤولية
+            </Link>
           </div>
         </div>
       </div>
