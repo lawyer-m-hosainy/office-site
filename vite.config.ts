@@ -18,7 +18,7 @@ export default defineConfig(({ isSsrBuild }) => {
           ? {}
           : {
               manualChunks: {
-                vendor: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async'],
+                vendor: ['react', 'react-dom', 'react-router', 'react-helmet-async'],
               },
             },
       },

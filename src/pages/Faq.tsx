@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import SEO from '../components/SEO';
 import faqData from '../content/faq.json';
 import siteData from '../content/site.json';

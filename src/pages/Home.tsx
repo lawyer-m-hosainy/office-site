@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import SEO from '../components/SEO';
 import servicesData from '../content/services.json';
 import siteData from '../content/site.json';

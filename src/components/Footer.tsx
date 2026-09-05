@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import siteData from '../content/site.json';
 import { Mail, MapPin, MessageCircle, Phone } from '../lib/icons';
 import { trackLead } from '../lib/analytics';

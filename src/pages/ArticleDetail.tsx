@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router';
 import SEO from '../components/SEO';
 import ArticleBody from '../components/ArticleBody';
 import siteData from '../content/site.json';
