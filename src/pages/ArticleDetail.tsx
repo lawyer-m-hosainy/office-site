@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router';
 import SEO from '../components/SEO';
 import ArticleBody from '../components/ArticleBody';
 import siteData from '../content/site.json';
-import { getArticle, getServiceTitle, readingMinutes, relatedArticles } from '../lib/articles';
+import { getArticle, getServiceTitle, readingTimeLabel, relatedArticles } from '../lib/articles';
 import { formatArabicDate } from '../lib/date';
 import { Calendar, ChevronLeft, Clock, Share2 } from '../lib/icons';
 import { trackEvent, trackLead } from '../lib/analytics';
@@ -61,7 +61,7 @@ export default function ArticleDetail() {
             </span>
             <span className="flex items-center gap-2">
               <Clock size={18} aria-hidden="true" />
-              {readingMinutes(article.content)} دقائق قراءة
+              {readingTimeLabel(article.content)}
             </span>
             {relatedServiceTitle && (
               <Link

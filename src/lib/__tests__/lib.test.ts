@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { formatArabicDate } from '../date';
-import { articles, readingMinutes, relatedArticles, getArticle } from '../articles';
+import { articles, readingMinutes, readingTimeLabel, relatedArticles, getArticle } from '../articles';
 import { getServiceIcon } from '../icons';
 
 describe('formatArabicDate', () => {
@@ -32,6 +32,20 @@ describe('articles helpers', () => {
   it('estimates at least one minute of reading time', () => {
     expect(readingMinutes('كلمة')).toBe(1);
     expect(readingMinutes(articles[0].content)).toBeGreaterThan(0);
+  });
+
+  it('inflects the reading-time label for Arabic singular, dual and plural', () => {
+    const words = (n: number) => 'كلمة '.repeat(n);
+    expect(readingTimeLabel(words(100))).toBe('دقيقة قراءة');
+    expect(readingTimeLabel(words(300))).toBe('دقيقتان للقراءة');
+    expect(readingTimeLabel(words(600))).toBe('4 دقائق قراءة');
+    expect(readingTimeLabel(words(1800))).toBe('12 دقيقة قراءة');
+  });
+
+  it('never renders the ungrammatical "1 دقائق"', () => {
+    for (const article of articles) {
+      expect(readingTimeLabel(article.content)).not.toMatch(/^1 دقائق/);
+    }
   });
 
   it('suggests related articles without repeating the current one', () => {

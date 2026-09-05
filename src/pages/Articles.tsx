@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import SEO from '../components/SEO';
 import servicesData from '../content/services.json';
-import { articles, readingMinutes } from '../lib/articles';
+import { articles, readingTimeLabel } from '../lib/articles';
 import { formatArabicDate } from '../lib/date';
 import { Calendar, ChevronLeft, Clock, Search } from '../lib/icons';
 
@@ -136,7 +136,7 @@ export default function Articles() {
                       </span>
                       <span className="flex items-center gap-2">
                         <Clock size={16} aria-hidden="true" />
-                        {readingMinutes(article.content)} دقائق قراءة
+                        {readingTimeLabel(article.content)}
                       </span>
                     </div>
                     <h2 className="text-2xl font-bold mb-4 text-primary line-clamp-2">

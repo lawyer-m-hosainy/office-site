@@ -23,10 +23,19 @@ export function getServiceTitle(serviceId: string | undefined): string | undefin
   return servicesData.find((s) => s.id === serviceId)?.title;
 }
 
-/** Rough Arabic reading time; 180 words per minute. */
+/** Rough reading time for dense Arabic legal prose; 150 words per minute. */
 export function readingMinutes(content: string): number {
   const words = content.trim().split(/\s+/).length;
-  return Math.max(1, Math.round(words / 180));
+  return Math.max(1, Math.round(words / 150));
+}
+
+/** Arabic counts inflect by number: singular, dual, then plural up to ten. */
+export function readingTimeLabel(content: string): string {
+  const minutes = readingMinutes(content);
+  if (minutes === 1) return 'دقيقة قراءة';
+  if (minutes === 2) return 'دقيقتان للقراءة';
+  if (minutes <= 10) return `${minutes} دقائق قراءة`;
+  return `${minutes} دقيقة قراءة`;
 }
 
 /** Same practice area first, then most recent. */

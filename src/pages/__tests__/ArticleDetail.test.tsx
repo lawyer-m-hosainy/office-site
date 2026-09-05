@@ -84,7 +84,7 @@ describe('ArticleDetail page', () => {
   it('shows reading time and a formatted Arabic date', () => {
     const article = articles[0];
     renderAt(`/articles/${article.id}`);
-    expect(screen.getByText(/دقائق قراءة/)).toBeInTheDocument();
+    expect(screen.getByText(/قراءة$/)).toBeInTheDocument();
     expect(screen.getByText(new RegExp(article.date.split('-')[0]))).toBeInTheDocument();
   });
 });
