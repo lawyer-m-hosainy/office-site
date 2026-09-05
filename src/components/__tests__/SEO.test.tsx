@@ -58,6 +58,18 @@ describe('office schema', () => {
     expect(typeof schema.geo.longitude).toBe('number');
     expect(schema.areaServed.length).toBeGreaterThan(0);
   });
+
+  it('links the Google Business Profile through sameAs and hasMap', () => {
+    expect(siteData.googleBusinessProfile).toMatch(
+      /^https:\/\/(maps\.app\.goo\.gl|www\.google\.com\/maps)\//
+    );
+    expect(schema.sameAs).toContain(siteData.googleBusinessProfile);
+    expect(schema.hasMap).toBe(siteData.googleBusinessProfile);
+  });
+
+  it('never repeats a profile link in sameAs', () => {
+    expect(new Set(schema.sameAs).size).toBe(schema.sameAs?.length);
+  });
 });
 
 describe('article and breadcrumb schema', () => {

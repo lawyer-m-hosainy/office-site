@@ -20,6 +20,13 @@ describe('Contact page', () => {
     expect(screen.getByTitle('موقع المكتب على الخريطة')).toHaveAttribute('src', siteData.mapLink);
   });
 
+  it('offers a direct link to the Google Business Profile', () => {
+    renderWithProviders(<Contact />);
+    const link = screen.getByRole('link', { name: /خرائط جوجل/ });
+    expect(link).toHaveAttribute('href', siteData.googleBusinessProfile);
+    expect(link).toHaveAttribute('rel', expect.stringContaining('noopener'));
+  });
+
   it('states the city and governorate for local visitors', () => {
     renderWithProviders(<Contact />);
     expect(screen.getAllByText(new RegExp(siteData.city)).length).toBeGreaterThan(0);
