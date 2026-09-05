@@ -43,11 +43,6 @@ export default function Articles() {
 
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-blue-50 border-s-4 border-blue-600 p-4 mb-10 rounded-e text-blue-900">
-            <strong>تنويه هام:</strong> المحتوى المنشور في هذه الصفحة لأغراض التوعية القانونية العامة
-            فقط، ولا يمثل استشارة قانونية ولا يُغني عن استشارة محامٍ متخصص بحالتك.
-          </div>
-
           <div className="mb-8 flex flex-col gap-4">
             <div className="relative">
               <label htmlFor="article-search" className="sr-only">

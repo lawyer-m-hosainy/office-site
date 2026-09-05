@@ -36,12 +36,18 @@ describe('ArticleDetail page', () => {
   it('renders bullet list lines ("- ...") as bullet points', () => {
     const article = articles.find((a) => a.content.includes('\n- '))!;
     renderAt(`/articles/${article.id}`);
-    const firstBullet = article.content
-      .split('\n')
-      .find((line) => line.startsWith('- '))!
-      .slice(2)
-      .trim();
-    expect(screen.getByText(firstBullet)).toBeInTheDocument();
+
+    const line = article.content.split('\n').find((l) => l.startsWith('- '))!;
+    const bold = line.match(/\*\*([^*]+)\*\*/);
+    if (bold) {
+      expect(screen.getAllByText(bold[1])[0].tagName).toBe('STRONG');
+    }
+
+    // Bold spans are separate elements, so match on the plain tail of the line.
+    const tail = line.slice(2).replace(/\*\*[^*]+\*\*/g, '').trim().slice(0, 40);
+    expect(
+      screen.getAllByText((_, el) => el?.textContent?.includes(tail) ?? false).length
+    ).toBeGreaterThan(0);
   });
 
   it('points the main call to action at the booking form, not the service description', () => {
