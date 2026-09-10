@@ -40,6 +40,7 @@ describe('office schema', () => {
     expect(schema.address.addressLocality).toBe(siteData.city);
     expect(schema.address.addressRegion).toBe(siteData.region);
     expect(schema.address.addressCountry).toBe('EG');
+    expect(schema.address.postalCode).toBe(siteData.postalCode);
   });
 
   it('uses an E.164 telephone number', () => {
