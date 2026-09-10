@@ -53,6 +53,7 @@ export function buildOfficeSchema() {
       addressLocality: siteData.city,
       addressRegion: siteData.region,
       addressCountry: siteData.country,
+      ...(siteData.postalCode ? { postalCode: siteData.postalCode } : {}),
     },
     geo: {
       '@type': 'GeoCoordinates',
