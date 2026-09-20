@@ -33,9 +33,9 @@ export default function Home() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-text-main z-10 space-y-6">
-              <p className="text-secondary font-bold">{siteData.tagline}</p>
+              <p className="text-secondary font-bold">{siteData.heroEyebrow}</p>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-                محامٍ بالمنصورة — تمثيل قانوني واضح يحمي مصالحك.
+                استشارة تبدأ بفهم دقيق، ودفاع يحفظ حقّك.
               </h1>
               <p className="text-lg text-text-muted leading-relaxed max-w-lg">
                 نقدم استشارات قانونية دقيقة وتمثيلاً قانونياً احترافياً يستند إلى دراسة وافية للوقائع،
@@ -131,7 +131,7 @@ export default function Home() {
       <section className="py-16 bg-surface border-y border-gray-100">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-primary">استشارة تبدأ بفهم دقيق للقضية</h2>
+            <h2 className="text-3xl font-bold text-primary">كيف نتعامل مع قضيتك</h2>
             <p className="text-lg text-text-muted leading-relaxed">
               نؤمن بأن الحل القانوني السليم يبدأ من دراسة متأنية للوقائع والمستندات. نحن نعمل بشفافية
               تامة لتحديد المسار القانوني الأنسب، ونقدم المشورة بوضوح وموضوعية دون تقديم وعود بالنتائج
